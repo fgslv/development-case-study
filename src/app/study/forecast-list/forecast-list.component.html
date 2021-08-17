@@ -1,0 +1,14 @@
+<div id="forecasts_viz"></div>
+<div *ngFor="let forecast of study">
+    <h3>{{ forecast.name }}</h3>
+    <table>
+    <tr>
+        <th>Date</th>
+        <th>Value</th>
+    </tr>
+    <tr *ngFor="let d of forecast.data">
+        <td>{{ d.date }}</td>
+        <td>{{ d.value }}</td>
+    </tr>
+    </table>
+</div>
