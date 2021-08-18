@@ -1,14 +1,23 @@
-<div id="forecasts_viz"></div>
-<div *ngFor="let forecast of study">
-    <h3>{{ forecast.name }}</h3>
-    <table>
-    <tr>
-        <th>Date</th>
-        <th>Value</th>
-    </tr>
-    <tr *ngFor="let d of forecast.data">
-        <td>{{ d.date }}</td>
-        <td>{{ d.value }}</td>
-    </tr>
+<mat-accordion>
+  <mat-expansion-panel *ngFor="let forecast of study">
+    <mat-expansion-panel-header>
+      {{ forecast.name }}
+    </mat-expansion-panel-header>
+
+    <table mat-table [dataSource]="forecast.data">
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef> Date </th>
+        <td mat-cell *matCellDef="let dataPair">
+          {{ dataPair.date.getDate() }}.{{ dataPair.date.getMonth()+1 }}.{{ dataPair.date.getFullYear() }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="value">
+        <th mat-header-cell *matHeaderCellDef> Value </th>
+        <td mat-cell *matCellDef="let dataPair"> {{ dataPair.value.toFixed(4) }} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-</div>
+  </mat-expansion-panel>
+</mat-accordion>
